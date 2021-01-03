@@ -30,108 +30,48 @@
         app:drawableStartCompat="@drawable/ic_search"
         app:layout_constraintTop_toBottomOf="@id/name" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/vegetarian_card"
-        style="@style/CategoryCardView"
-        app:layout_constraintEnd_toStartOf="@id/non_vegetarian_card"
+    <com.cegep.epicure.customview.CategoryView
+        android:id="@+id/vege_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:category="vege"
+        app:layout_constraintEnd_toStartOf="@id/meat_view"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/search_view">
+        app:layout_constraintTop_toBottomOf="@id/search_view" />
 
-        <ImageView
-            android:id="@+id/vegetarian_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/vegetarian"
-            android:src="@drawable/ic_vegetarian" />
+    <com.cegep.epicure.customview.CategoryView
+        android:id="@+id/meat_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:category="meat"
+        app:layout_constraintEnd_toStartOf="@id/vegan_view"
+        app:layout_constraintStart_toEndOf="@id/vege_view"
+        app:layout_constraintTop_toBottomOf="@id/search_view" />
 
-    </com.google.android.material.card.MaterialCardView>
+    <com.cegep.epicure.customview.CategoryView
+        android:id="@+id/vegan_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:category="vegan"
+        app:layout_constraintEnd_toStartOf="@id/drinks_view"
+        app:layout_constraintStart_toEndOf="@id/meat_view"
+        app:layout_constraintTop_toBottomOf="@id/search_view" />
 
-    <TextView
-        android:id="@+id/vegetarian_text"
-        style="@style/CategoryText"
-        android:text="@string/vegetarian"
-        app:layout_constraintEnd_toEndOf="@id/vegetarian_card"
-        app:layout_constraintStart_toStartOf="@id/vegetarian_card"
-        app:layout_constraintTop_toBottomOf="@id/vegetarian_card" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/non_vegetarian_card"
-        style="@style/CategoryCardView"
-        app:layout_constraintEnd_toStartOf="@id/vegan_card"
-        app:layout_constraintStart_toEndOf="@id/vegetarian_card"
-        app:layout_constraintTop_toBottomOf="@id/search_view">
-
-        <ImageView
-            android:id="@+id/non_vegetarian_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/non_vegetarian"
-            android:src="@drawable/ic_non_vegetarian" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-        android:id="@+id/non_vegetarian_text"
-        style="@style/CategoryText"
-        android:text="@string/non_vegetarian"
-        app:layout_constraintBaseline_toBaselineOf="@id/vegetarian_text"
-        app:layout_constraintEnd_toEndOf="@id/non_vegetarian_card"
-        app:layout_constraintStart_toStartOf="@id/non_vegetarian_card" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/vegan_card"
-        style="@style/CategoryCardView"
-        app:layout_constraintEnd_toStartOf="@id/drinks_card"
-        app:layout_constraintStart_toEndOf="@id/non_vegetarian_card"
-        app:layout_constraintTop_toBottomOf="@id/search_view">
-
-        <ImageView
-            android:id="@+id/vegan_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/vegan"
-            android:src="@drawable/ic_vegan" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-        android:id="@+id/vegan_text"
-        style="@style/CategoryText"
-        android:text="@string/vegan"
-        app:layout_constraintBaseline_toBaselineOf="@id/vegetarian_text"
-        app:layout_constraintEnd_toEndOf="@id/vegan_card"
-        app:layout_constraintStart_toStartOf="@id/vegan_card" />
-
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/drinks_card"
-        style="@style/CategoryCardView"
+    <com.cegep.epicure.customview.CategoryView
+        android:id="@+id/drinks_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:category="drinks"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/vegan_card"
-        app:layout_constraintTop_toBottomOf="@id/search_view">
-
-        <ImageView
-            android:id="@+id/drinks_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/drinks"
-            android:src="@drawable/ic_drinks" />
-
-    </com.google.android.material.card.MaterialCardView>
-
-    <TextView
-        android:id="@+id/drinks_text"
-        style="@style/CategoryText"
-        android:text="@string/drinks"
-        app:layout_constraintBaseline_toBaselineOf="@id/vegetarian_text"
-        app:layout_constraintEnd_toEndOf="@id/drinks_card"
-        app:layout_constraintStart_toStartOf="@id/drinks_card" />
+        app:layout_constraintStart_toEndOf="@id/vegan_view"
+        app:layout_constraintTop_toBottomOf="@id/search_view" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vegan_text" />
+        app:layout_constraintTop_toBottomOf="@id/meat_view" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

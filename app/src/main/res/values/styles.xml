@@ -10,6 +10,7 @@
         <item name="contentPaddingBottom">@dimen/size_l</item>
         <item name="cardCornerRadius">@dimen/size_l</item>
         <item name="cardBackgroundColor">@color/light_gray</item>
+        <item name="cardUseCompatPadding">true</item>
         <item name="android:layout_marginTop">@dimen/size_xl</item>
     </style>
 

@@ -7,17 +7,24 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import com.cegep.epicure.helper.CategoryUiHandler;
+import com.cegep.epicure.model.Category;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements CategoryUiHandler.CategorySelectedListener {
 
     public HomeFragment() {
-
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        new CategoryUiHandler(view, this);
         return view;
+    }
+
+    @Override
+    public void onCategorySelected(Category category) {
+
     }
 }
