@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/size_xxl"
         android:textAppearance="?textAppearanceHeadline6"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Hi, Mina!" />
@@ -71,8 +72,8 @@
         android:id="@+id/recyler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clipToPadding="false"
         android:layout_marginTop="@dimen/size_m"
+        android:clipToPadding="false"
         android:paddingTop="@dimen/size_l"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/meat_view" />
