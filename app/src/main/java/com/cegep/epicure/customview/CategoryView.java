@@ -28,6 +28,7 @@ public class CategoryView extends LinearLayout {
     private Animation scaleUpAnimation;
     private Animation scaleDownAnimation;
 
+    private int normalElevation;
     private int selectedElevation;
 
     public CategoryView(Context context) {
@@ -99,7 +100,8 @@ public class CategoryView extends LinearLayout {
         scaleUpAnimation = createScaleAnimation(1f, 1.1f, 1f, 1.1f);
         scaleDownAnimation = createScaleAnimation(1.1f, 1f, 1.1f, 1f);
 
-        selectedElevation = context.getResources().getDimensionPixelSize(R.dimen.size_m);
+        normalElevation = context.getResources().getDimensionPixelSize(R.dimen.size_s);
+        selectedElevation = context.getResources().getDimensionPixelSize(R.dimen.size_ml);
     }
 
     @Override
@@ -108,12 +110,12 @@ public class CategoryView extends LinearLayout {
             categoryCard.setElevation(selectedElevation);
             categoryText.setTypeface(categoryText.getTypeface(), Typeface.BOLD);
             categoryImage.setImageTintList(ColorStateList.valueOf(getContext().getColor(R.color.color_primary)));
-            startAnimation(scaleUpAnimation);
+//            startAnimation(scaleUpAnimation);
         } else {
-            categoryCard.setElevation(0);
+            categoryCard.setElevation(normalElevation);
             categoryText.setTypeface(normalTypeface, Typeface.NORMAL);
             categoryImage.setImageTintList(ColorStateList.valueOf(getContext().getColor(R.color.gray)));
-            startAnimation(scaleDownAnimation);
+//            startAnimation(scaleDownAnimation);
         }
     }
 

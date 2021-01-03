@@ -4,11 +4,14 @@
     <dimen name="size_xs">2dp</dimen>
     <dimen name="size_s">4dp</dimen>
     <dimen name="size_m">8dp</dimen>
+    <dimen name="size_ml">12dp</dimen>
     <dimen name="size_l">16dp</dimen>
-    <dimen name="size_ml">20dp</dimen>
+    <dimen name="size_xml">20dp</dimen>
     <dimen name="size_xl">24dp</dimen>
     <dimen name="size_xxl">32dp</dimen>
 
     <dimen name="category_icon_size">32dp</dimen>
+
+    <dimen name="recipe_item_image_size">240dp</dimen>
 
 </resources>
