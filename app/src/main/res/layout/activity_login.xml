@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:background="@drawable/loginbackground3"
+    tools:context=".Login">
+
+    <TextView
+        android:id="@+id/tvEpicure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EPICURE"
+        android:layout_marginTop="10mm"
+        android:textSize="50sp"
+        android:textColor="#fcfcfc"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/tagLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Health requires Healthy Food"
+        android:textColor="#fcfcfc"
+       />
+
+    <TextView
+        android:id="@+id/tvEmail"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:text="E-mail"
+        android:textSize="25sp"
+        android:textColor="#fcfcfc"
+        android:layout_marginTop="10mm"/>
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:paddingLeft="5dp"
+        android:hint="Please enter your E-mail"
+        android:background="@drawable/tvbackground"/>
+
+    <TextView
+        android:id="@+id/tvPassword"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5mm"
+        android:textSize="25sp"
+        android:textColor="#fcfcfc"
+        android:text="Password"/>
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:paddingLeft="5dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:hint="Please enter your Password"
+        android:background="@drawable/tvbackground"/>
+
+    <CheckBox
+        android:id="@+id/checkboxPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="#fcfcfc"
+        android:text="Remember my Password"/>
+
+    <Button
+        android:id="@+id/btSignIn"
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:text="SIGN IN"
+        />
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20mm"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account?"/>
+        <TextView
+            android:id="@+id/tvSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple_500"
+            android:text="Sign Up"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="By Loging in, you agree to Terms of Services"
+        android:layout_marginTop="2mm"
+        android:textColor="#fcfcfc"
+        />
+
+
+
+
+
+
+</LinearLayout>
