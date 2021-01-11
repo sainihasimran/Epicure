@@ -7,4 +7,15 @@
     <string name="non_vegetarian">Meat</string>
     <string name="vegan">Vegan</string>
     <string name="drinks">Drinks</string>
+    <string name="name">Name</string>
+    <string name="create">Create</string>
+    <string name="serving_size">Serving Size</string>
+    <string name="category">Category</string>
+    <string name="time">Time</string>
+    <string name="calories">Calories</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="add_ingredient">Add Ingredient</string>
+    <string name="preparation">Preparation</string>
+    <string name="click_to_add_image">Click to add image</string>
+    <string name="add_preparation_step">Add Preparation Step</string>
 </resources>
