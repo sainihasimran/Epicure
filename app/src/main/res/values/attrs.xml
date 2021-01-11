@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CategoryView">
+        <attr name="category" format="enum">
+            <enum name="vege" value="0" />
+            <enum name="meat" value="1" />
+            <enum name="vegan" value="2" />
+            <enum name="drinks" value="3" />
+        </attr>
+    </declare-styleable>
+
+</resources>

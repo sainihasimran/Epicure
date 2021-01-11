@@ -1,3 +1,10 @@
 <resources>
+    <string name="greeting">Hi, %s</string>
+
     <string name="app_name">Epicure</string>
+    <string name="search_foods">Search foods…</string>
+    <string name="vegetarian">Veg</string>
+    <string name="non_vegetarian">Meat</string>
+    <string name="vegan">Vegan</string>
+    <string name="drinks">Drinks</string>
 </resources>
