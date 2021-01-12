@@ -18,4 +18,6 @@
     <string name="preparation">Preparation</string>
     <string name="click_to_add_image">Click to add image</string>
     <string name="add_preparation_step">Add Preparation Step</string>
+    <string name="storage_permission_declined">Storage permission declined</string>
+    <string name="choose_image_error">Choose image error</string>
 </resources>

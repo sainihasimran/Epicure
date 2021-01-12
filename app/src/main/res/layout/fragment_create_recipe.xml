@@ -52,6 +52,7 @@
                 app:layout_constraintTop_toBottomOf="@id/recipe_image">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/recipe_name_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -67,6 +68,7 @@
                 app:layout_constraintTop_toBottomOf="@id/recipe_name_input">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/serving_size_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -105,6 +107,7 @@
                 app:layout_constraintTop_toBottomOf="@id/recipe_category_input">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/recipe_time_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -145,6 +148,7 @@
                 app:layout_constraintTop_toBottomOf="@id/recipe_category_input">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/calorie_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number" />
@@ -172,7 +176,7 @@
                 app:layout_constraintTop_toBottomOf="@id/ingredients_label">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip_1"
+                    android:id="@+id/add_ingredient_chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add_ingredient"
