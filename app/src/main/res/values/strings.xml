@@ -20,4 +20,5 @@
     <string name="add_preparation_step">Add Preparation Step</string>
     <string name="storage_permission_declined">Storage permission declined</string>
     <string name="choose_image_error">Choose image error</string>
+    <string name="add_recipe">Add Recipe</string>
 </resources>

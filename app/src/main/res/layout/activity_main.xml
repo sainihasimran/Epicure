@@ -5,9 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <fragment
+    <FrameLayout
         android:id="@+id/container"
-        android:name="com.cegep.epicure.HomeFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

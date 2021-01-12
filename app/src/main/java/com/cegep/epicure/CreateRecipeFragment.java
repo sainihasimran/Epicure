@@ -28,6 +28,10 @@ public class CreateRecipeFragment extends Fragment {
 
     private static final int CHOOSE_IMAGE_REQUEST_CODE = 485;
 
+    public static CreateRecipeFragment newInstance() {
+        return new CreateRecipeFragment();
+    }
+
     private Chip addImageChip;
 
     private ImageView recipeImageView;
