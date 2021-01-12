@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
@@ -64,6 +63,7 @@ public class CreateRecipeFragment extends Fragment {
         });
 
         setupCategories(view);
+        setupDuration(view);
     }
 
     private void setupCategories(View view) {
@@ -76,13 +76,25 @@ public class CreateRecipeFragment extends Fragment {
         AutoCompleteTextView recipeCategoryTextView = view.findViewById(R.id.recipe_category);
         recipeCategoryTextView.setAdapter(categoryAdapter);
 
-        recipeCategoryTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO: 12/01/21 replace this with actual implementation
-                Toast.makeText(requireContext(), "Category selected: " + categories.get(position), Toast.LENGTH_SHORT).show();
-            }
+        recipeCategoryTextView.setOnItemClickListener((parent, view1, position, id) -> {
+            // TODO: 12/01/21 replace this with actual implementation
+            Toast.makeText(requireContext(), "Category selected: " + categories.get(position), Toast.LENGTH_SHORT).show();
         });
+    }
+
+    private void setupDuration(View view) {
+        final List<String> durations = new ArrayList<>();
+        durations.add("hrs");
+        durations.add("mins");
+
+        ArrayAdapter<String> durationsAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, durations);
+        AutoCompleteTextView durationsTextView = view.findViewById(R.id.time_type);
+        durationsTextView.setAdapter(durationsAdapter);
+
+        // TODO: 12/01/21 replace with actual implementation
+        durationsTextView.setOnItemClickListener(
+                (parent, view1, position, id) -> Toast.makeText(requireContext(), "Duration selected: " + durations.get(position), Toast.LENGTH_SHORT)
+                        .show());
     }
 
     @Override
