@@ -24,43 +24,38 @@
         android:layout_height="wrap_content"
         android:text="Health requires Healthy Food"
         android:textColor="#fcfcfc"
-       />
+        />
 
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tvEmail"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:text="E-mail"
-        android:textSize="25sp"
-        android:textColor="#fcfcfc"
-        android:layout_marginTop="10mm"/>
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        app:endIconMode="clear_text"
+        android:layout_marginTop="10mm"
+        android:hint="E-mail">
 
-    <EditText
-        android:id="@+id/etEmail"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:paddingLeft="5dp"
-        android:hint="Please enter your E-mail"
-        android:background="@drawable/tvbackground"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tvPassword"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="5mm"
-        android:textSize="25sp"
-        android:textColor="#fcfcfc"
-        android:text="Password"/>
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10mm"
+        app:endIconMode="password_toggle"
+        android:hint="Password">
 
-    <EditText
-        android:id="@+id/etPassword"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:paddingLeft="5dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:hint="Please enter your Password"
-        android:background="@drawable/tvbackground"/>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <CheckBox
         android:id="@+id/checkboxPassword"
@@ -70,19 +65,18 @@
         android:textColor="#fcfcfc"
         android:text="Remember my Password"/>
 
-    <Button
-        android:id="@+id/btSignIn"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btLogin"
         android:layout_width="125dp"
         android:layout_height="50dp"
-        android:text="SIGN IN"
-        />
-
+        android:layout_marginTop="8mm"
+        android:text="Login" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20mm"
+        android:layout_marginTop="15mm"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -92,21 +86,9 @@
             android:id="@+id/tvSignup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/purple_500"
+            android:textColor="@color/color_primary"
             android:text="Sign Up"/>
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="By Loging in, you agree to Terms of Services"
-        android:layout_marginTop="2mm"
-        android:textColor="#fcfcfc"
-        />
-
-
-
-
 
 
 </LinearLayout>
