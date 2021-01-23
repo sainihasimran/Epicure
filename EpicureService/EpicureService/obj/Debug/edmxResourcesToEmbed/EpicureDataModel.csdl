@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EpicureDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Ingredient">
+    <Key>
+      <PropertyRef Name="IngredientId" />
+    </Key>
+    <Property Name="IngredientId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RecipeId" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Recipe" Relationship="Self.FK_Ingredients_Recipe1" FromRole="Ingredients" ToRole="Recipe" />
+  </EntityType>
+  <EntityType Name="Recipe">
+    <Key>
+      <PropertyRef Name="RecipeId" />
+    </Key>
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Image" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ServingSize" Type="Int32" Nullable="false" />
+    <Property Name="Category" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Duration" Type="Int32" Nullable="false" />
+    <Property Name="Calories" Type="Int32" Nullable="false" />
+    <Property Name="RecipeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Ingredients" Relationship="Self.FK_Ingredients_Recipe1" FromRole="Recipe" ToRole="Ingredients" />
+    <NavigationProperty Name="Steps" Relationship="Self.FK__Steps__RecipeId__2B3F6F97" FromRole="Recipe" ToRole="Steps" />
+  </EntityType>
+  <EntityType Name="Step">
+    <Key>
+      <PropertyRef Name="StepNumber" />
+      <PropertyRef Name="RecipeId" />
+    </Key>
+    <Property Name="StepNumber" Type="Int32" Nullable="false" />
+    <Property Name="RecipeId" Type="Int32" Nullable="false" />
+    <Property Name="StepDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Recipe" Relationship="Self.FK__Steps__RecipeId__2B3F6F97" FromRole="Steps" ToRole="Recipe" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="FirstName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+  </EntityType>
+  <Association Name="FK_Ingredients_Recipe1">
+    <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+    <End Role="Ingredients" Type="Self.Ingredient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recipe">
+        <PropertyRef Name="RecipeId" />
+      </Principal>
+      <Dependent Role="Ingredients">
+        <PropertyRef Name="RecipeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Steps__RecipeId__2B3F6F97">
+    <End Role="Recipe" Type="Self.Recipe" Multiplicity="1" />
+    <End Role="Steps" Type="Self.Step" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Recipe">
+        <PropertyRef Name="RecipeId" />
+      </Principal>
+      <Dependent Role="Steps">
+        <PropertyRef Name="RecipeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EpicureDbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Ingredients" EntityType="Self.Ingredient" />
+    <EntitySet Name="Recipes" EntityType="Self.Recipe" />
+    <EntitySet Name="Steps" EntityType="Self.Step" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Ingredients_Recipe1" Association="Self.FK_Ingredients_Recipe1">
+      <End Role="Recipe" EntitySet="Recipes" />
+      <End Role="Ingredients" EntitySet="Ingredients" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Steps__RecipeId__2B3F6F97" Association="Self.FK__Steps__RecipeId__2B3F6F97">
+      <End Role="Recipe" EntitySet="Recipes" />
+      <End Role="Steps" EntitySet="Steps" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
