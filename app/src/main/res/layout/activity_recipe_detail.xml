@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<LinearLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,10 +13,12 @@
     android:layout_weight="10">
 
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:weightSum="3"
+            android:orientation="vertical"
             android:background="@drawable/ic_recipe">
 
             <TextView
@@ -22,25 +28,45 @@
                 android:textColor="#000000"
                 android:textSize="50sp"
                 android:textStyle="bold"
-                android:layout_marginTop="125dp"/>
+                android:layout_marginTop="100dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:text=" 10 min"
+                android:layout_marginLeft="20dp"
+                android:drawableLeft="@drawable/baseline_alarm_24"
+                android:textSize="20sp"
+                />
         </LinearLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/detailbg"
-        >
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:background="@drawable/detailbg"
+
+            android:padding="10dp"
             >
-
-
-
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingredients"
+                android:layout_marginLeft="20dp"
+                android:textColor="#000000"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+            <ListView
+                android:id="@+id/ingredientslist"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                >
+            </ListView>
         </LinearLayout>
-    </ScrollView>
+
+
 
 
 
@@ -51,3 +77,4 @@
 
 
 </LinearLayout>
+</ScrollView>
