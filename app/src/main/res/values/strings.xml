@@ -21,4 +21,15 @@
     <string name="storage_permission_declined">Storage permission declined</string>
     <string name="choose_image_error">Choose image error</string>
     <string name="add_recipe">Add Recipe</string>
+    <string name="error">Error</string>
+    
+    <!-- Form validation errors -->
+    <string name="error_empty_recipe_name">Recipe name cannot be empty</string>
+    <string name="error_empty_recipe_serving_size">Recipe serving size cannot be empty</string>
+    <string name="error_empty_recipe_category">Recipe category cannot be empty</string>
+    <string name="error_empty_recipe_time">Recipe time cannot be empty</string>
+    <string name="error_empty_recipe_duration">Recipe duration cannot be empty</string>
+    <string name="error_empty_recipe_calories">Recipe calories cannot be empty</string>
+    <string name="error_empty_recipe_ingredients">Recipe ingredients cannot be empty</string>
+    <string name="error_empty_recipe_preparation_steps">Recipe preparation steps cannot be empty</string>
 </resources>

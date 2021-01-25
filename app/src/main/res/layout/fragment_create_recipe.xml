@@ -231,7 +231,7 @@
         app:cardElevation="@dimen/size_m">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/create_button"
+            android:id="@+id/create_recipe_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_xl"
