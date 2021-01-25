@@ -45,6 +45,8 @@ public class CreateRecipeFragment extends Fragment {
 
     private ImageView recipeImageView;
 
+    List<String> ingredients = new ArrayList<>();
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -114,13 +116,19 @@ public class CreateRecipeFragment extends Fragment {
             builder.setView(view1);
 
             builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                String ingredient = inputEditText.getText().toString();
                 Chip chip = (Chip) LayoutInflater.from(requireContext()).inflate(R.layout.ingredient_chip, chipGroup, false);
-                chip.setText(inputEditText.getText());
-                chip.setOnCloseIconClickListener(v1 -> chipGroup.removeView(chip));
+                chip.setText(ingredient);
+                chip.setOnCloseIconClickListener(v1 -> {
+                    chipGroup.removeView(chip);
+                    ingredients.remove(String.valueOf(chip.getText()));
+                });
 
                 int numOfChildren = chipGroup.getChildCount();
 
                 chipGroup.addView(chip, numOfChildren - 1);
+
+                ingredients.add(ingredient);
             });
 
             builder.setNegativeButton(android.R.string.cancel, null);
