@@ -1,80 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-<LinearLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".RecipeDetail"
-    android:orientation="vertical"
-    android:layout_weight="10">
+    android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".RecipeDetail">
 
-
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:weightSum="3"
-            android:orientation="vertical"
-            android:background="@drawable/ic_recipe">
+            android:layout_height="wrap_content">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Recipe Name"
-                android:textColor="#000000"
-                android:textSize="50sp"
-                android:textStyle="bold"
-                android:layout_marginTop="100dp"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:text=" 10 min"
-                android:layout_marginLeft="20dp"
-                android:drawableLeft="@drawable/baseline_alarm_24"
-                android:textSize="20sp"
-                />
-        </LinearLayout>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/ic_recipe" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100dp"
+                    android:text="Recipe Name"
+                    android:textColor="#000000"
+                    android:textSize="50sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:drawableLeft="@drawable/baseline_alarm_24"
+                    android:text=" 10 min"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:background="@drawable/detailbg"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            android:padding="10dp"
-            >
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ingredients"
                 android:layout_marginLeft="20dp"
+                android:text="Ingredients"
                 android:textColor="#000000"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
-            <ListView
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/ingredientslist"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                >
-            </ListView>
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="Preparation"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/preparationlist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+
         </LinearLayout>
 
 
-
-
-
-
-
-
-
-
-
-</LinearLayout>
+    </LinearLayout>
 </ScrollView>

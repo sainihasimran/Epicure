@@ -1,33 +1,60 @@
 package com.cegep.epicure;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.Adapter;
 import android.widget.TextView;
 
-public class IngredientsAdapter  extends ArrayAdapter<String> {
-    private final Activity context;
-    private final String[] Ingredients;
-    public IngredientsAdapter(Activity context, String[] Ingredients) {
-        super(context, R.layout.ingredientslist, Ingredients);
-        // TODO Auto-generated constructor stub
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
-        this.context = context;
-        this.Ingredients = Ingredients;
+import java.util.List;
+
+
+public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.Viewholder> {
+
+    private  List<IngredientsModal> ingredientsModalList;
+      Context context;
+
+
+    public IngredientsAdapter(List<IngredientsModal> ingredientsModalList) {
+        this.ingredientsModalList = ingredientsModalList;
+        this.context=context;
+
     }
-        public View getView(int position, View view, ViewGroup parent) {
-            LayoutInflater inflater=context.getLayoutInflater();
-            View rowView=inflater.inflate(R.layout.ingredientslist, null,true);
-
-            TextView itemName = (TextView) rowView.findViewById(R.id.ingItems);
-            itemName.setText(Ingredients[position]);
-            return rowView;
-
-        };
 
 
+    @NonNull
+    @Override
+    public Viewholder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredientslist,parent,false);
+        Viewholder viewholder = new Viewholder(view);
+        return viewholder;
+    }
 
+    @Override
+    public void onBindViewHolder(@NonNull Viewholder holder, int position) {
+TextView ingredent =holder.ingItems;
+ingredent.setText(ingredientsModalList.get(position).getIngItems());
+    }
+
+
+
+    @Override
+    public int getItemCount() {
+        return ingredientsModalList.size();
+    }
+
+      class Viewholder extends RecyclerView.ViewHolder{
+        private TextView ingItems;
+
+        public Viewholder(@NonNull View itemView) {
+            super(itemView);
+            ingItems=itemView.findViewById(R.id.ingItems);
+        }
+        public void setData(String items){
+            ingItems.setText(items);
+        }
+    }
 }

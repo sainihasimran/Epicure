@@ -7,7 +7,7 @@
     android:layout_marginBottom="5dp">
 
     <TextView
-        android:id="@+id/ingItems"
+        android:id="@+id/PreItems"
         android:layout_width="250dp"
         android:layout_height="40dp"
         android:textSize="20sp"
