@@ -21,6 +21,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import com.cegep.epicure.list.StepsAdapter;
+import com.cegep.epicure.list.callback.RemoveItemClickListener;
 import com.cegep.epicure.model.Category;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -29,7 +32,7 @@ import com.zhihu.matisse.MimeType;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateRecipeFragment extends Fragment {
+public class CreateRecipeFragment extends Fragment implements RemoveItemClickListener {
 
     private static final String[] REQUIRED_PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
@@ -45,7 +48,11 @@ public class CreateRecipeFragment extends Fragment {
 
     private ImageView recipeImageView;
 
-    List<String> ingredients = new ArrayList<>();
+    private StepsAdapter stepsAdapter;
+
+    private final List<String> ingredients = new ArrayList<>();
+
+    private final List<String> preparationSteps = new ArrayList<>();
 
     @Nullable
     @Override
@@ -72,6 +79,7 @@ public class CreateRecipeFragment extends Fragment {
         setupCategories(view);
         setupDuration(view);
         setupAddIngredientsChip(view);
+        setupStepsList(view);
     }
 
     private void setupCategories(View view) {
@@ -141,6 +149,35 @@ public class CreateRecipeFragment extends Fragment {
         });
     }
 
+    private void setupStepsList(View view) {
+        RecyclerView stepsList = view.findViewById(R.id.steps_recycler_view);
+        stepsAdapter = new StepsAdapter(this);
+        stepsList.setAdapter(stepsAdapter);
+
+        view.findViewById(R.id.add_preparation_step).setOnClickListener(v -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+            builder.setTitle(R.string.add_preparation_step);
+
+            View view1 = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_text_input_layout, null, false);
+            EditText inputEditText = view1.findViewById(R.id.input_text);
+            builder.setView(view1);
+
+            builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                String preparationStep = inputEditText.getText().toString();
+                preparationSteps.add(preparationStep);
+                stepsAdapter.submitList(new ArrayList<>(preparationSteps));
+            });
+
+            builder.setNegativeButton(android.R.string.cancel, null);
+            AlertDialog dialog = builder.create();
+            Window window = dialog.getWindow();
+            if (window != null) {
+                window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            }
+            dialog.show();
+        });
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -172,5 +209,11 @@ public class CreateRecipeFragment extends Fragment {
         } else {
             Toast.makeText(requireContext(), R.string.choose_image_error, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void onRemoveClick(String item, int position) {
+        preparationSteps.remove(item);
+        stepsAdapter.submitList(new ArrayList<>(preparationSteps));
     }
 }

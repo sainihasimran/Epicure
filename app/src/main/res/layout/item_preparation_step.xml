@@ -35,9 +35,21 @@
         android:layout_marginStart="@dimen/size_m"
         android:paddingTop="@dimen/size_s"
         android:textAppearance="?textAppearanceBody1"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/remove_button"
+        android:layout_marginEnd="@dimen/size_m"
         app:layout_constraintStart_toEndOf="@id/step_number"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Thinly slice half of an avocado. Keep slices together and start molding them into a line." />
+
+    <ImageButton
+        android:id="@+id/remove_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
