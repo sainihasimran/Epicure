@@ -21,4 +21,13 @@
         <item name="android:textAppearance">?textAppearanceCaption</item>
     </style>
 
+    <style name="Epicure.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxBackgroundColor">@color/white</item>
+    </style>
+
+    <style name="Epicure.TextInputLayout.CreateRecipe">
+        <item name="android:layout_marginTop">@dimen/size_l</item>
+        <item name="android:layout_marginStart">@dimen/size_l</item>
+        <item name="android:layout_marginEnd">@dimen/size_l</item>
+    </style>
 </resources>
