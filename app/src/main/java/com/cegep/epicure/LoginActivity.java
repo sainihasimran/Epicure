@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.tvSignup).setOnClickListener(view -> {
-                                                           Intent signup = new Intent(getApplicationContext(), SignUp.class);
+                                                           Intent signup = new Intent(getApplicationContext(), SignUpActivity.class);
                                                            startActivity(signup);
                                                        }
         );
@@ -87,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
                 finish();
+                Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(LoginActivity.this, "Invalid credentials", Toast.LENGTH_SHORT).show();
             }
