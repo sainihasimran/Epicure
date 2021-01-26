@@ -1,94 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/loginbackground3"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="@drawable/loginbackground3"
-    tools:context=".Login">
+    tools:context=".LoginActivity">
 
-    <TextView
-        android:id="@+id/tvEpicure"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="EPICURE"
-        android:layout_marginTop="10mm"
-        android:textSize="50sp"
-        android:textColor="#fcfcfc"
-        android:textStyle="bold"/>
-    <TextView
-        android:id="@+id/tagLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Health requires Healthy Food"
-        android:textColor="#fcfcfc"
-        />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tvEmail"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        app:endIconMode="clear_text"
-        android:layout_marginTop="10mm"
-        android:hint="E-mail">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:maxLines="1" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tvPassword"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10mm"
-        app:endIconMode="password_toggle"
-        android:hint="Password">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <CheckBox
-        android:id="@+id/checkboxPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textColor="#fcfcfc"
-        android:text="Remember my Password"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btLogin"
-        android:layout_width="125dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="8mm"
-        android:text="Login" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@color/black_60" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="15mm"
-        >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
         <TextView
+            android:id="@+id/tvEpicure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Don't have an account?"/>
+            android:layout_marginTop="@dimen/size_mega"
+            android:text="EPICURE"
+            android:textColor="#fcfcfc"
+            android:textSize="50sp"
+            android:textStyle="bold" />
+
         <TextView
-            android:id="@+id/tvSignup"
+            android:id="@+id/tagLine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_primary"
-            android:text="Sign Up"/>
+            android:text="Health requires Healthy Food"
+            android:textColor="#fcfcfc" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tvEmail"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_xxxl"
+            android:hint="E-mail"
+            app:endIconMode="clear_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tvPassword"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_xl"
+            android:hint="Password"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password_editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btLogin"
+            android:layout_width="125dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="@dimen/size_xxxl"
+            android:text="Login" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_xxxl"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Don't have an account?" />
+
+            <TextView
+                android:id="@+id/tvSignup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/size_s"
+                android:text="Sign Up"
+                android:textColor="@color/color_primary" />
+        </LinearLayout>
+
     </LinearLayout>
 
-
-</LinearLayout>
+</FrameLayout>
