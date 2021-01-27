@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -23,17 +24,20 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.cegep.epicure.list.StepsAdapter;
 import com.cegep.epicure.list.callback.RemoveItemClickListener;
 import com.cegep.epicure.model.Category;
 import com.cegep.epicure.model.Recipe;
+import com.cegep.epicure.network.NetworkInteractor;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import java.util.ArrayList;
 import java.util.List;
+import retrofit2.Response;
 
 public class CreateRecipeFragment extends Fragment implements RemoveItemClickListener {
 
@@ -92,8 +96,10 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
 
         view.findViewById(R.id.create_recipe_button).setOnClickListener(v -> {
             boolean formValid = validateForm();
-            // TODO: 24/01/21 handler saving image to firebase
-            // TODO: 24/01/21 initiate BE call to save object
+            if (formValid) {
+                // TODO: 24/01/21 handler saving image to firebase
+                new CreateRecipeAsyncTask().execute(recipe);
+            }
         });
     }
 
@@ -292,5 +298,32 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
                 .setMessage(msgRes)
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
+    }
+
+    private class CreateRecipeAsyncTask extends AsyncTask<Recipe, Void, Recipe> {
+
+        @Override
+        protected Recipe doInBackground(Recipe... recipes) {
+            try {
+                Response<Recipe> recipeResponse = NetworkInteractor.getService().createRecipe(recipes[0]).execute();
+                if (recipeResponse.isSuccessful()) {
+                    return recipeResponse.body();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Recipe recipe) {
+            super.onPostExecute(recipe);
+            if (recipe != null) {
+                requireActivity().getSupportFragmentManager()
+                        .popBackStack(CreateRecipeFragment.class.getSimpleName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            } else {
+                Toast.makeText(requireContext(), "Failed to create recipe", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }
