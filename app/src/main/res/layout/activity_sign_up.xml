@@ -4,66 +4,68 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/signupbackground"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="@drawable/signupbackground"
-    tools:context=".SignUp">
+    tools:context=".SignUpActivity">
 
     <TextView
         android:id="@+id/tvEpicure"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EPICURE"
         android:layout_marginTop="5mm"
-        android:textSize="50sp"
+        android:text="EPICURE"
         android:textColor="#fcfcfc"
-        android:textStyle="bold"/>
+        android:textSize="50sp"
+        android:textStyle="bold" />
+
     <TextView
         android:id="@+id/tagLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Health requires Healthy Food"
-        android:textColor="#fcfcfc"
-        />
+        android:textColor="#fcfcfc" />
+
     <ScrollView
-        android:layout_marginTop="30dp"
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView">
+        android:layout_marginTop="30dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center_horizontal"
-            >
+            android:orientation="vertical">
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tVFName"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                app:startIconDrawable="@drawable/ic_firstname"
-                android:hint="First Name">
+                android:hint="First Name"
+                app:startIconDrawable="@drawable/ic_firstname">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/firstName_editText"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-
-                    />
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tVLName"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5mm"
-                app:startIconDrawable="@drawable/ic_lastname"
-                android:hint="Last Name">
+                android:hint="Last Name"
+                app:startIconDrawable="@drawable/ic_lastname">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/lastName_editText"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    />
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -72,14 +74,14 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5mm"
-                app:startIconDrawable="@drawable/baseline_call_24"
-                android:hint="Phone Number">
+                android:hint="Phone Number"
+                app:startIconDrawable="@drawable/baseline_call_24">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/phoneNumber_editText"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    />
+                    android:inputType="phone" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -88,37 +90,36 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5mm"
-                app:startIconDrawable="@drawable/baseline_email_24"
-                android:hint="E-mail">
+                android:hint="E-mail"
+                app:startIconDrawable="@drawable/baseline_email_24">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email_editText"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    />
+                    android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_marginTop="5mm"
                 android:layout_marginBottom="5mm"
                 android:gravity="center"
-                >
+                android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tvAge"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-
                     android:hint="Age">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/age_editText"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
-                        />
+                        android:inputType="number" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -134,28 +135,24 @@
                         android:id="@+id/genderDropDown"
                         android:layout_width="180dp"
                         android:layout_height="wrap_content"
-                        android:inputType="none"
-                        />
+                        android:inputType="none" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-
             </LinearLayout>
-
-
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tvPassword"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                app:endIconMode="password_toggle"
-                android:hint="Password">
+                android:hint="Password"
+                app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password_editText"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    />
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -164,14 +161,14 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5mm"
-                app:endIconMode="password_toggle"
-                android:hint="Confirm Password">
+                android:hint="Confirm Password"
+                app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/confirm_password_editText"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    />
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -181,13 +178,10 @@
                 android:layout_height="50dp"
                 android:layout_marginTop="5mm"
                 android:layout_marginBottom="5mm"
-                android:text="Sign In" />
-
+                android:text="Sign Up" />
 
         </LinearLayout>
 
     </ScrollView>
-
-
 
 </LinearLayout>

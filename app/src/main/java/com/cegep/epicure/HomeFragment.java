@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
         User user = new User();
 
         TextView nameTextView = view.findViewById(R.id.name);
-        nameTextView.setText(getString(R.string.greeting, user.firstName));
+        nameTextView.setText(getString(R.string.greeting, user.FirstName));
 
         List<Recipe> recipes = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
