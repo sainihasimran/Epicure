@@ -100,7 +100,7 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
     private void setupCategories(View view) {
         final List<String> categories = new ArrayList<>(Category.values().length);
         for (Category category : Category.values()) {
-            categories.add(category.toString().charAt(0) + category.toString().substring(1).toLowerCase().replace("_", " "));
+            categories.add(category.getNiceName());
         }
 
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, categories);

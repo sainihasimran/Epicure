@@ -1,8 +1,10 @@
 package com.cegep.epicure.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import java.util.List;
 
-public class Recipe {
+public class Recipe implements Parcelable {
 
     private String image;
 
@@ -19,6 +21,21 @@ public class Recipe {
     private List<String> ingredients;
 
     private List<String> preparationSteps;
+
+    public Recipe() {
+
+    }
+
+    private Recipe(Parcel in) {
+        image = in.readString();
+        name = in.readString();
+        servingSize = in.readInt();
+        category = in.readString();
+        duration = in.readInt();
+        calories = in.readInt();
+        ingredients = in.createStringArrayList();
+        preparationSteps = in.createStringArrayList();
+    }
 
     public String getImage() {
         return image;
@@ -83,4 +100,32 @@ public class Recipe {
     public void setPreparationSteps(List<String> preparationSteps) {
         this.preparationSteps = preparationSteps;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(image);
+        dest.writeString(name);
+        dest.writeInt(servingSize);
+        dest.writeString(category);
+        dest.writeInt(duration);
+        dest.writeInt((calories));
+        dest.writeStringList(ingredients);
+        dest.writeStringList(preparationSteps);
+    }
+
+    public static final Parcelable.Creator<Recipe> CREATOR
+            = new Parcelable.Creator<Recipe>() {
+        public Recipe createFromParcel(Parcel in) {
+            return new Recipe(in);
+        }
+
+        public Recipe[] newArray(int size) {
+            return new Recipe[size];
+        }
+    };
 }

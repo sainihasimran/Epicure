@@ -30,20 +30,26 @@ public class LoginActivity extends AppCompatActivity {
 
         btLogin = findViewById(R.id.btLogin);
         btLogin.setOnClickListener(view -> {
-            String email = emailEditText.getText().toString();
-            String password = passwordEditText.getText().toString();
-
-            if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                Toast.makeText(this, "Please enter valid email address", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (TextUtils.isEmpty(password)) {
-                Toast.makeText(this, "Password must 8 or more characters", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            new LoginAsyncTask().execute(Pair.create(email, password));
+            //todo remove following
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
+            // TODO: 26/01/21 uncomment following
+//            String email = emailEditText.getText().toString();
+//            String password = passwordEditText.getText().toString();
+//
+//            if (TextUtils.isEmpty(email) || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+//                Toast.makeText(this, "Please enter valid email address", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            if (TextUtils.isEmpty(password)) {
+//                Toast.makeText(this, "Password must 8 or more characters", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            new LoginAsyncTask().execute(Pair.create(email, password));
         });
 
         findViewById(R.id.tvSignup).setOnClickListener(view -> {
