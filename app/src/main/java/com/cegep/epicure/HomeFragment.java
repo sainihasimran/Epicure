@@ -1,5 +1,6 @@
 package com.cegep.epicure;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,12 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
     public HomeFragment() {
     }
 
+    public static HomeFragment newInstance() {
+        return new HomeFragment();
+    }
+
+    private MainNavigator mainNavigator;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,11 +42,17 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        view.findViewById(R.id.add_recipe_button).setOnClickListener(v -> {
+            if (mainNavigator != null) {
+                mainNavigator.navigateToCreateRecipeScreen();
+            }
+        });
+
         // TODO: 02/01/21 Remove hardcoded user
         User user = new User();
 
         TextView nameTextView = view.findViewById(R.id.name);
-        nameTextView.setText(getString(R.string.greeting, user.firstName));
+        nameTextView.setText(getString(R.string.greeting, user.FirstName));
 
         List<Recipe> recipes = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
@@ -57,5 +70,20 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
     @Override
     public void onCategorySelected(Category category) {
 
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        if (context instanceof MainNavigator) {
+            mainNavigator = (MainNavigator) context;
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mainNavigator = null;
     }
 }
