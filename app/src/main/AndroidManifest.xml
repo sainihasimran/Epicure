@@ -14,7 +14,7 @@
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.Epicure">
 
-        <activity android:name=".RecipeDetail">
+        <activity android:name=".RecipeDetail" />
 
         <activity android:name=".LoginActivity">
 

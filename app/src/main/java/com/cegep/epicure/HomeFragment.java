@@ -19,7 +19,7 @@ import com.cegep.epicure.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements CategoryUiHandler.CategorySelectedListener {
+public class HomeFragment extends Fragment implements CategoryUiHandler.CategorySelectedListener, NewRecipeListener {
 
     public HomeFragment() {
     }
@@ -29,6 +29,8 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
     }
 
     private MainNavigator mainNavigator;
+
+    private List<Recipe> recipes = new ArrayList<>();
 
     @Nullable
     @Override
@@ -85,5 +87,14 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
     public void onDetach() {
         super.onDetach();
         mainNavigator = null;
+    }
+
+    @Override
+    public void onNewRecipeAdded(Recipe recipe) {
+        if (getActivity() == null|| getContext() == null) {
+            return;
+        }
+
+        recipes.add(recipe);
     }
 }
