@@ -1,92 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".RecipeDetail">
+        android:layout_height="wrap_content">
 
-        <FrameLayout
+        <ImageView
+            android:id="@+id/recipe_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="200dp"
+            android:src="@drawable/ic_recipe"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:src="@drawable/ic_recipe" />
+        <TextView
+            android:id="@+id/recipe_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:text="@string/recipe_name"
+            android:textColor="#000000"
+            android:textSize="50sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/recipe_image"
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:orientation="vertical">
+        <TextView
+            android:id="@+id/ingredients_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_xl"
+            android:text="@string/ingredients"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recipe_image" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="100dp"
-                    android:text="Recipe Name"
-                    android:textColor="#000000"
-                    android:textSize="50sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:drawableLeft="@drawable/baseline_alarm_24"
-                    android:text=" 10 min"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-        </FrameLayout>
-
-        <LinearLayout
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/ingredients_group"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/detailbg"
-            android:orientation="vertical"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_l"
+            android:layout_marginTop="@dimen/size_m"
+            android:layout_marginEnd="@dimen/size_l"
+            android:animateLayoutChanges="true"
+            app:layout_constraintTop_toBottomOf="@id/ingredients_label" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="Ingredients"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+        <TextView
+            android:id="@+id/preparation_steps_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_xl"
+            android:text="@string/preparation_steps"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ingredients_group" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/preparationlist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_l"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@id/preparation_steps_label" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ingredientslist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:text="Preparation"
-                android:textColor="#000000"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/preparationlist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
 </ScrollView>

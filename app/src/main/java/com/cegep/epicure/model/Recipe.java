@@ -28,10 +28,10 @@ public class Recipe implements Parcelable {
     private int calories;
 
     @SerializedName("Ingredients")
-    private List<String> ingredients;
+    private List<Ingredient> ingredients;
 
     @SerializedName("PreparationSteps")
-    private List<String> preparationSteps;
+    private List<PreparationStep> preparationSteps;
 
     public Recipe() {
 
@@ -44,6 +44,7 @@ public class Recipe implements Parcelable {
         category = in.readString();
         duration = in.readInt();
         calories = in.readInt();
+        ingredients = in.createStringArrayList()
         ingredients = in.createStringArrayList();
         preparationSteps = in.createStringArrayList();
     }
