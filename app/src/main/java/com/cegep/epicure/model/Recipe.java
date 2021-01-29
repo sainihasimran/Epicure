@@ -1,23 +1,34 @@
 package com.cegep.epicure.model;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class Recipe {
 
-    private String image;
+    public int RecipeId;
 
+    @SerializedName("Name")
     private String name;
 
+    @SerializedName("Image")
+    private String image;
+
+    @SerializedName("ServingSize")
     private int servingSize;
 
+    @SerializedName("Category")
     private String category;
 
+    @SerializedName("Duration")
     private int duration;
 
+    @SerializedName("Calories")
     private int calories;
 
+    @SerializedName("Ingredients")
     private List<String> ingredients;
 
+    @SerializedName("PreparationSteps")
     private List<String> preparationSteps;
 
     public String getImage() {

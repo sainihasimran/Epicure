@@ -3,6 +3,7 @@ package com.cegep.epicure;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -29,6 +30,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.cegep.epicure.list.StepsAdapter;
 import com.cegep.epicure.list.callback.RemoveItemClickListener;
 import com.cegep.epicure.model.Category;
+import com.cegep.epicure.model.Ingredient;
+import com.cegep.epicure.model.PreparationStep;
 import com.cegep.epicure.model.Recipe;
 import com.cegep.epicure.network.NetworkInteractor;
 import com.google.android.material.chip.Chip;
@@ -66,6 +69,8 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
     private String selectedDuration;
 
     private Recipe recipe;
+
+    private NewRecipeListener newRecipeListener;
 
     @Nullable
     @Override
@@ -305,9 +310,32 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
         @Override
         protected Recipe doInBackground(Recipe... recipes) {
             try {
-                Response<Recipe> recipeResponse = NetworkInteractor.getService().createRecipe(recipes[0]).execute();
+                Recipe recipe = recipes[0];
+                if (recipe.getImage() == null) {
+                    recipe.setImage("");
+                }
+                Response<Recipe> recipeResponse = NetworkInteractor.getService().createRecipe(recipe).execute();
                 if (recipeResponse.isSuccessful()) {
-                    return recipeResponse.body();
+                    Recipe responseRecipe = recipeResponse.body();
+                    int recipeId = responseRecipe.RecipeId;
+
+                    for (String ingredient : ingredients) {
+                        try {
+                            NetworkInteractor.getService().createIngredient(new Ingredient(recipeId, ingredient)).execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    for (int i = 0; i < preparationSteps.size(); i++) {
+                        try {
+                            NetworkInteractor.getService().createPreparationStep(new PreparationStep(i + 1, recipeId, preparationSteps.get(i))).execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    return recipe;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -319,11 +347,31 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
         protected void onPostExecute(Recipe recipe) {
             super.onPostExecute(recipe);
             if (recipe != null) {
+                if (newRecipeListener != null) {
+                    newRecipeListener.onNewRecipeAdded(recipe);
+                }
+
                 requireActivity().getSupportFragmentManager()
                         .popBackStack(CreateRecipeFragment.class.getSimpleName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
             } else {
                 Toast.makeText(requireContext(), "Failed to create recipe", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            newRecipeListener = (NewRecipeListener) context;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        newRecipeListener = null;
     }
 }
