@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "438208805673",
+    "project_id": "epicure-9f032",
+    "storage_bucket": "epicure-9f032.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438208805673:android:ceb25ef8076b9b6507d538",
+        "android_client_info": {
+          "package_name": "com.cegep.epicure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438208805673-o49k0d1jbeohak6lfuvnn8sniduj434v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3Z4dRsYgnQRedNuomX5MXw5vwmbamamw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438208805673-o49k0d1jbeohak6lfuvnn8sniduj434v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

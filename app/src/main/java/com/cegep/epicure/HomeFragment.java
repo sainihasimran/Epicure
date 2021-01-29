@@ -20,10 +20,11 @@ import com.cegep.epicure.model.Recipe;
 import com.cegep.epicure.model.User;
 import com.cegep.epicure.network.NetworkInteractor;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment implements CategoryUiHandler.CategorySelectedListener {
+public class HomeFragment extends Fragment implements CategoryUiHandler.CategorySelectedListener, NewRecipeListener {
 
     private RecyclerView recyclerView;
 
@@ -37,6 +38,8 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
     }
 
     private MainNavigator mainNavigator;
+
+    private List<Recipe> recipes = new ArrayList<>();
 
     @Nullable
     @Override
@@ -91,6 +94,7 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
         mainNavigator = null;
     }
 
+
     private class FetchRecipesTask extends AsyncTask<Category, Void, List<Recipe>> {
 
         @Override
@@ -117,5 +121,14 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
                 Toast.makeText(requireContext(), "Failed to fetch recipes", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    @Override
+    public void onNewRecipeAdded(Recipe recipe) {
+        if (getActivity() == null || getContext() == null) {
+            return;
+        }
+
+        recipes.add(recipe);
     }
 }

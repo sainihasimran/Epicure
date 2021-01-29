@@ -3,9 +3,10 @@ package com.cegep.epicure;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -23,17 +24,29 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.cegep.epicure.list.StepsAdapter;
 import com.cegep.epicure.list.callback.RemoveItemClickListener;
 import com.cegep.epicure.model.Category;
+import com.cegep.epicure.model.Ingredient;
+import com.cegep.epicure.model.PreparationStep;
 import com.cegep.epicure.model.Recipe;
+import com.cegep.epicure.network.NetworkInteractor;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import retrofit2.Response;
 
 public class CreateRecipeFragment extends Fragment implements RemoveItemClickListener {
 
@@ -61,7 +74,11 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
 
     private String selectedDuration;
 
+    private String selectedImage;
+
     private Recipe recipe;
+
+    private NewRecipeListener newRecipeListener;
 
     @Nullable
     @Override
@@ -92,8 +109,13 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
 
         view.findViewById(R.id.create_recipe_button).setOnClickListener(v -> {
             boolean formValid = validateForm();
-            // TODO: 24/01/21 handler saving image to firebase
-            // TODO: 24/01/21 initiate BE call to save object
+            if (formValid) {
+                if (!TextUtils.isEmpty(selectedImage)) {
+                    uploadPhoto();
+                } else {
+                    new CreateRecipeAsyncTask().execute(recipe);
+                }
+            }
         });
     }
 
@@ -208,11 +230,12 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK && requestCode == CHOOSE_IMAGE_REQUEST_CODE && data != null) {
-            List<Uri> selectionData = Matisse.obtainResult(data);
+            List<String> selectionData = Matisse.obtainPathResult(data);
             if (selectionData == null || selectionData.isEmpty()) {
                 Toast.makeText(requireContext(), R.string.choose_image_error, Toast.LENGTH_SHORT).show();
             } else {
-                recipeImageView.setImageURI(selectionData.get(0));
+                selectedImage = selectionData.get(0);
+                recipeImageView.setImageURI(Matisse.obtainResult(data).get(0));
                 addImageChip.setVisibility(View.GONE);
             }
         } else {
@@ -228,6 +251,7 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
 
     private boolean validateForm() {
         recipe = new Recipe();
+
         String name = ((EditText) getView().findViewById(R.id.recipe_name_editText)).getText().toString();
         if (TextUtils.isEmpty(name)) {
             showErrorDialog(R.string.error_empty_recipe_name);
@@ -292,5 +316,102 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
                 .setMessage(msgRes)
                 .setPositiveButton(android.R.string.ok, null)
                 .show();
+    }
+
+    private class CreateRecipeAsyncTask extends AsyncTask<Recipe, Void, Recipe> {
+
+        @Override
+        protected Recipe doInBackground(Recipe... recipes) {
+            try {
+                Recipe recipe = recipes[0];
+                if (recipe.getImage() == null) {
+                    recipe.setImage("");
+                }
+                Response<Recipe> recipeResponse = NetworkInteractor.getService().createRecipe(recipe).execute();
+                if (recipeResponse.isSuccessful()) {
+                    Recipe responseRecipe = recipeResponse.body();
+                    int recipeId = responseRecipe.RecipeId;
+
+                    for (String ingredient : ingredients) {
+                        try {
+                            NetworkInteractor.getService().createIngredient(new Ingredient(recipeId, ingredient)).execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    for (int i = 0; i < preparationSteps.size(); i++) {
+                        try {
+                            NetworkInteractor.getService().createPreparationStep(new PreparationStep(i + 1, recipeId, preparationSteps.get(i))).execute();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    return recipe;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Recipe recipe) {
+            super.onPostExecute(recipe);
+            if (recipe != null) {
+                if (newRecipeListener != null) {
+                    newRecipeListener.onNewRecipeAdded(recipe);
+                }
+
+                requireActivity().getSupportFragmentManager()
+                        .popBackStack(CreateRecipeFragment.class.getSimpleName(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            } else {
+                Toast.makeText(requireContext(), "Failed to create recipe", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void uploadPhoto() {
+        String selectedImageName = selectedImage.substring(selectedImage.lastIndexOf("/") + 1);
+        try {
+            InputStream stream = new FileInputStream(new File(selectedImage));
+            StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+            final StorageReference imageStorageReference = storageReference.child(selectedImageName);
+
+            UploadTask uploadTask = imageStorageReference.putStream(stream);
+            uploadTask.continueWithTask(task -> {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                return imageStorageReference.getDownloadUrl();
+            }).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    recipe.setImage(task.getResult().toString());
+                    new CreateRecipeAsyncTask().execute(recipe);
+                }
+            }).addOnFailureListener(e -> Toast.makeText(requireContext(), "Failed to upload image", Toast.LENGTH_SHORT).show());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            Toast.makeText(requireContext(), "Failed to create product", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        try {
+            newRecipeListener = (NewRecipeListener) context;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        newRecipeListener = null;
     }
 }
