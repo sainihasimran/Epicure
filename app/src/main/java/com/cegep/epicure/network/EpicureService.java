@@ -13,6 +13,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface EpicureService {
 
@@ -38,5 +39,5 @@ public interface EpicureService {
 
     @GET("Recipes")
     @Headers({"Content-Type: application/json", "Accept: application/json"})
-    Call<List<Recipe>> fetchRecipes(@Header("cat") String category);
+    Call<List<Recipe>> fetchRecipes(@Query("cat") String category);
 }

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -20,15 +19,21 @@ import com.cegep.epicure.model.Recipe;
 import com.cegep.epicure.model.User;
 import com.cegep.epicure.network.NetworkInteractor;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import retrofit2.Response;
 
-public class HomeFragment extends Fragment implements CategoryUiHandler.CategorySelectedListener, NewRecipeListener {
+public class HomeFragment extends Fragment implements CategoryUiHandler.CategorySelectedListener, NewRecipeListener, ItemClickListener<Recipe> {
 
     private RecyclerView recyclerView;
 
     private FetchRecipesTask currentFetchRecipesTask;
+
+    private RecipeAdapter recipeAdapter;
+
+    private Category selectedCategory = Category.VEGETARIAN;
+
+    private MainNavigator mainNavigator;
 
     public HomeFragment() {
     }
@@ -37,9 +42,11 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
         return new HomeFragment();
     }
 
-    private MainNavigator mainNavigator;
-
-    private List<Recipe> recipes = new ArrayList<>();
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        onCategorySelected(Category.VEGETARIAN);
+    }
 
     @Nullable
     @Override
@@ -71,12 +78,15 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
 
     @Override
     public void onCategorySelected(Category category) {
+        selectedCategory = category;
+
         if (currentFetchRecipesTask != null) {
             currentFetchRecipesTask.cancel(true);
         }
 
         currentFetchRecipesTask = new FetchRecipesTask();
         currentFetchRecipesTask.execute(category);
+
     }
 
     @Override
@@ -115,12 +125,17 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
         protected void onPostExecute(List<Recipe> recipes) {
             super.onPostExecute(recipes);
             if (recipes != null) {
-                RecipeAdapter recipeAdapter = new RecipeAdapter(recipes);
-                recyclerView.setAdapter(recipeAdapter);
+                recipeAdapter = new RecipeAdapter(recipes, HomeFragment.this);
             } else {
-                Toast.makeText(requireContext(), "Failed to fetch recipes", Toast.LENGTH_SHORT).show();
+                recipeAdapter = new RecipeAdapter(Collections.emptyList(), HomeFragment.this);
             }
+            recyclerView.setAdapter(recipeAdapter);
         }
+    }
+
+    @Override
+    public void onItemClick(Recipe item) {
+        //Navigate to recipe detail here
     }
 
     @Override
@@ -129,6 +144,8 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
             return;
         }
 
-        recipes.add(recipe);
+        if (recipe.getCategory().equalsIgnoreCase(selectedCategory.getNiceName())) {
+            recipeAdapter.addItem(recipe);
+        }
     }
 }

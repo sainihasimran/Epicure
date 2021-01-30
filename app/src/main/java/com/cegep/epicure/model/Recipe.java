@@ -44,9 +44,8 @@ public class Recipe implements Parcelable {
         category = in.readString();
         duration = in.readInt();
         calories = in.readInt();
-        ingredients = in.createStringArrayList()
-        ingredients = in.createStringArrayList();
-        preparationSteps = in.createStringArrayList();
+        ingredients = in.readArrayList(null);
+        preparationSteps = in.readArrayList(null);
     }
 
     public String getImage() {
@@ -97,19 +96,19 @@ public class Recipe implements Parcelable {
         this.calories = calories;
     }
 
-    public List<String> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<String> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
-    public List<String> getPreparationSteps() {
+    public List<PreparationStep> getPreparationSteps() {
         return preparationSteps;
     }
 
-    public void setPreparationSteps(List<String> preparationSteps) {
+    public void setPreparationSteps(List<PreparationStep> preparationSteps) {
         this.preparationSteps = preparationSteps;
     }
 
@@ -126,8 +125,8 @@ public class Recipe implements Parcelable {
         dest.writeString(category);
         dest.writeInt(duration);
         dest.writeInt((calories));
-        dest.writeStringList(ingredients);
-        dest.writeStringList(preparationSteps);
+        dest.writeList(ingredients);
+        dest.writeList(preparationSteps);
     }
 
     public static final Parcelable.Creator<Recipe> CREATOR

@@ -299,13 +299,10 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
             return false;
         }
 
-        recipe.setIngredients(ingredients);
-
         if (preparationSteps.isEmpty()) {
             showErrorDialog(R.string.error_empty_recipe_preparation_steps);
             return false;
         }
-        recipe.setPreparationSteps(preparationSteps);
 
         return true;
     }
