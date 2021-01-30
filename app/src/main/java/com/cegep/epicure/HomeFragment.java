@@ -134,8 +134,8 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
     }
 
     @Override
-    public void onItemClick(Recipe item) {
-        //Navigate to recipe detail here
+    public void onItemClick(Recipe recipe) {
+        startActivity(RecipeDetailActivity.getCallingIntent(requireContext(), recipe.RecipeId));
     }
 
     @Override

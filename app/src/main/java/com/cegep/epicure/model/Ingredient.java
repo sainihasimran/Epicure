@@ -9,6 +9,10 @@ public class Ingredient implements Parcelable {
 
     public String Name;
 
+    public Ingredient() {
+
+    }
+
     public Ingredient(int recipeId, String name) {
         RecipeId = recipeId;
         Name = name;

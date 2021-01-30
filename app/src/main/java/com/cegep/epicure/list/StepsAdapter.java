@@ -8,25 +8,29 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import com.cegep.epicure.R;
 import com.cegep.epicure.list.callback.RemoveItemClickListener;
+import com.cegep.epicure.model.PreparationStep;
 
-public class StepsAdapter extends ListAdapter<String, StepsViewHolder> {
+public class StepsAdapter extends ListAdapter<PreparationStep, StepsViewHolder> {
 
     private final RemoveItemClickListener removeItemClickListener;
 
-    public StepsAdapter(RemoveItemClickListener removeItemClickListener) {
-        super(new DiffUtil.ItemCallback<String>() {
+    private final boolean isEditable;
+
+    public StepsAdapter(RemoveItemClickListener removeItemClickListener, boolean isEditable) {
+        super(new DiffUtil.ItemCallback<PreparationStep>() {
             @Override
-            public boolean areItemsTheSame(@NonNull String oldItem, @NonNull String newItem) {
-                return oldItem.equals(newItem);
+            public boolean areItemsTheSame(@NonNull PreparationStep oldItem, @NonNull PreparationStep newItem) {
+                return oldItem.StepDescription.equals(newItem.StepDescription);
             }
 
             @Override
-            public boolean areContentsTheSame(@NonNull String oldItem, @NonNull String newItem) {
+            public boolean areContentsTheSame(@NonNull PreparationStep oldItem, @NonNull PreparationStep newItem) {
                 return false;
             }
         });
 
         this.removeItemClickListener = removeItemClickListener;
+        this.isEditable = isEditable;
     }
 
     @NonNull
@@ -39,6 +43,6 @@ public class StepsAdapter extends ListAdapter<String, StepsViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull StepsViewHolder holder, int position) {
-        holder.bind(getItem(position), position);
+        holder.bind(getItem(position), position, isEditable);
     }
 }

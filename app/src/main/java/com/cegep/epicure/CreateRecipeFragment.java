@@ -66,9 +66,9 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
 
     private StepsAdapter stepsAdapter;
 
-    private final List<String> ingredients = new ArrayList<>();
+    private final List<Ingredient> ingredients = new ArrayList<>();
 
-    private final List<String> preparationSteps = new ArrayList<>();
+    private final List<PreparationStep> preparationSteps = new ArrayList<>();
 
     private String selectedCategory;
 
@@ -155,9 +155,9 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
             builder.setView(view1);
 
             builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                String ingredient = inputEditText.getText().toString();
+                String ingredientStr = inputEditText.getText().toString();
                 Chip chip = (Chip) LayoutInflater.from(requireContext()).inflate(R.layout.ingredient_chip, chipGroup, false);
-                chip.setText(ingredient);
+                chip.setText(ingredientStr);
                 chip.setOnCloseIconClickListener(v1 -> {
                     chipGroup.removeView(chip);
                     ingredients.remove(String.valueOf(chip.getText()));
@@ -167,6 +167,8 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
 
                 chipGroup.addView(chip, numOfChildren - 1);
 
+                Ingredient ingredient = new Ingredient();
+                ingredient.Name = ingredientStr;
                 ingredients.add(ingredient);
             });
 
@@ -182,7 +184,7 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
 
     private void setupStepsList(View view) {
         RecyclerView stepsList = view.findViewById(R.id.steps_recycler_view);
-        stepsAdapter = new StepsAdapter(this);
+        stepsAdapter = new StepsAdapter(this, false);
         stepsList.setAdapter(stepsAdapter);
 
         view.findViewById(R.id.add_preparation_step).setOnClickListener(v -> {
@@ -194,7 +196,10 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
             builder.setView(view1);
 
             builder.setPositiveButton(android.R.string.ok, (dialog, which) -> {
-                String preparationStep = inputEditText.getText().toString();
+                String preparationStepStr = inputEditText.getText().toString();
+                PreparationStep preparationStep = new PreparationStep();
+                preparationStep.StepDescription = preparationStepStr;
+
                 preparationSteps.add(preparationStep);
                 stepsAdapter.submitList(new ArrayList<>(preparationSteps));
             });
@@ -244,8 +249,8 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
     }
 
     @Override
-    public void onRemoveClick(String item, int position) {
-        preparationSteps.remove(item);
+    public void onRemoveClick(PreparationStep step, int position) {
+        preparationSteps.remove(step);
         stepsAdapter.submitList(new ArrayList<>(preparationSteps));
     }
 
@@ -329,9 +334,9 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
                     Recipe responseRecipe = recipeResponse.body();
                     int recipeId = responseRecipe.RecipeId;
 
-                    for (String ingredient : ingredients) {
+                    for (Ingredient ingredient : ingredients) {
                         try {
-                            NetworkInteractor.getService().createIngredient(new Ingredient(recipeId, ingredient)).execute();
+                            NetworkInteractor.getService().createIngredient(new Ingredient(recipeId, ingredient.Name)).execute();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -339,7 +344,9 @@ public class CreateRecipeFragment extends Fragment implements RemoveItemClickLis
 
                     for (int i = 0; i < preparationSteps.size(); i++) {
                         try {
-                            NetworkInteractor.getService().createPreparationStep(new PreparationStep(i + 1, recipeId, preparationSteps.get(i))).execute();
+                            NetworkInteractor.getService()
+                                    .createPreparationStep(new PreparationStep(i + 1, recipeId, preparationSteps.get(i).StepDescription))
+                                    .execute();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

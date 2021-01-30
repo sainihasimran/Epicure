@@ -2,6 +2,7 @@ package com.cegep.epicure.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
@@ -30,25 +31,18 @@ public class Recipe implements Parcelable {
     @SerializedName("Ingredients")
     private List<Ingredient> ingredients;
 
-    @SerializedName("PreparationSteps")
+    @SerializedName("Steps")
     private List<PreparationStep> preparationSteps;
 
     public Recipe() {
 
     }
 
-    private Recipe(Parcel in) {
-        image = in.readString();
-        name = in.readString();
-        servingSize = in.readInt();
-        category = in.readString();
-        duration = in.readInt();
-        calories = in.readInt();
-        ingredients = in.readArrayList(null);
-        preparationSteps = in.readArrayList(null);
-    }
-
     public String getImage() {
+        if (TextUtils.isEmpty((image))) {
+            return "https://firebasestorage.googleapis.com/v0/b/epicure-9f032.appspot.com/o/17KITCHEN1-articleLarge.jpg?alt=media&token=b1d1121e-95f1-4d52-ba6b-693a8a9ebe1a";
+        }
+
         return image;
     }
 
@@ -112,6 +106,15 @@ public class Recipe implements Parcelable {
         this.preparationSteps = preparationSteps;
     }
 
+    private Recipe(Parcel in) {
+        image = in.readString();
+        name = in.readString();
+        servingSize = in.readInt();
+        category = in.readString();
+        duration = in.readInt();
+        calories = in.readInt();
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -124,9 +127,7 @@ public class Recipe implements Parcelable {
         dest.writeInt(servingSize);
         dest.writeString(category);
         dest.writeInt(duration);
-        dest.writeInt((calories));
-        dest.writeList(ingredients);
-        dest.writeList(preparationSteps);
+        dest.writeInt(calories);
     }
 
     public static final Parcelable.Creator<Recipe> CREATOR

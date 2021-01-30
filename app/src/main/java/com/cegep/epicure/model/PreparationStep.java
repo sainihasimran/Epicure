@@ -11,6 +11,10 @@ public class PreparationStep implements Parcelable  {
 
     public String StepDescription;
 
+    public PreparationStep() {
+
+    }
+
     public PreparationStep(int stepNumber, int recipeId, String stepDescription) {
         StepNumber = stepNumber;
         RecipeId = recipeId;
