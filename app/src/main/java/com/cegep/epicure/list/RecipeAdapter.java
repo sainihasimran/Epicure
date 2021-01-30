@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import com.cegep.epicure.ItemClickListener;
 import com.cegep.epicure.R;
 import com.cegep.epicure.model.Recipe;
 import java.util.List;
@@ -12,16 +13,18 @@ import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
 
     private final List<Recipe> recipes;
+    private final ItemClickListener<Recipe> recipeItemClickListener;
 
-    public RecipeAdapter(List<Recipe> recipes) {
+    public RecipeAdapter(List<Recipe> recipes, ItemClickListener<Recipe> recipeItemClickListener) {
         this.recipes = recipes;
+        this.recipeItemClickListener = recipeItemClickListener;
     }
 
     @NonNull
     @Override
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe, parent, false);
-        return new RecipeViewHolder(view);
+        return new RecipeViewHolder(view, recipeItemClickListener);
     }
 
     @Override
@@ -32,5 +35,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeViewHolder> {
     @Override
     public int getItemCount() {
         return recipes.size();
+    }
+
+    public void addItem(Recipe recipe) {
+        recipes.add(recipe);
+        notifyDataSetChanged();
     }
 }
