@@ -66,10 +66,7 @@ public class HomeFragment extends Fragment implements CategoryUiHandler.Category
             }
         });
 
-        User user = new User();
 
-        TextView nameTextView = view.findViewById(R.id.name);
-        nameTextView.setText(getString(R.string.greeting, user.FirstName));
 
         recyclerView = view.findViewById(R.id.recyler_view);
         recyclerView.setHasFixedSize(true);
